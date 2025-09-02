@@ -1,0 +1,230 @@
+/* ================= GLOBAL VARIABLES ================= */
+:root {
+  --primary: #0077b6;
+  --secondary: #00b4d8;
+  --accent: #90e0ef;
+  --bg: #f0f4f8;
+  --card-bg: #ffffff;
+  --text-color: #023e8a;
+  --shadow: rgba(0,0,0,0.2);
+  --btn-hover: #0096c7;
+  --border-radius: 20px;
+}
+
+/* ================= RESET & BASE ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+body {
+  background: linear-gradient(120deg, #e0f7ff, #f0f4f8);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* ================= HEADER ================= */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+  box-shadow: 0 6px 25px var(--shadow);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header .logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header .logo img {
+  height: 50px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  animation: rotateLogo 5s linear infinite;
+}
+
+@keyframes rotateLogo {
+  0% { transform: rotate(0deg);}
+  50% { transform: rotate(10deg);}
+  100% { transform: rotate(0deg);}
+}
+
+.header .logo h1 {
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+.nav a {
+  margin: 0 12px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  position: relative;
+}
+
+.nav a::after {
+  content: '';
+  display: block;
+  width: 0%;
+  height: 3px;
+  background: white;
+  transition: width 0.3s;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  border-radius: 3px;
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+/* ================= PRODUITS CARDS ================= */
+.produit-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 40px;
+  justify-content: center;
+}
+
+.produit-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 25px;
+  width: 260px;
+  box-shadow: 0 10px 25px var(--shadow);
+  text-align: center;
+  transition: transform 0.4s, box-shadow 0.4s;
+  position: relative;
+  cursor: pointer;
+}
+
+.produit-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px var(--shadow);
+}
+
+.produit-card img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  transition: transform 0.4s, box-shadow 0.4s;
+}
+
+.produit-card img:hover {
+  transform: scale(1.15) rotate(-3deg);
+  box-shadow: 0 8px 20px var(--shadow);
+}
+
+.produit-card h3 {
+  margin: 10px 0 8px 0;
+  color: var(--primary);
+  font-size: 20px;
+}
+
+.produit-card .prix {
+  font-weight: bold;
+  color: var(--secondary);
+  font-size: 18px;
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background: var(--btn-hover);
+  transform: scale(1.1) rotate(-1deg);
+  box-shadow: 0 8px 25px var(--shadow);
+}
+
+/* ================= BADGE PANIER ================= */
+.panier-badge {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  background: var(--secondary);
+  color: white;
+  padding: 18px 24px;
+  border-radius: 50px;
+  font-weight: bold;
+  box-shadow: 0 6px 18px var(--shadow);
+  cursor: pointer;
+  animation: bounce 1.5s infinite;
+  z-index: 10;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ================= TABLE PANIER ================= */
+table {
+  width: 90%;
+  margin: 30px auto;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 10px 25px var(--shadow);
+}
+
+th, td {
+  padding: 18px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background: var(--primary);
+  color: white;
+  font-size: 18px;
+}
+
+tr:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* ================= TITRES ================= */
+h1, h2 {
+  text-align: center;
+  margin-top: 20px;
+  text-shadow: 1px 1px 2px var(--shadow);
+}
+
+/* ================= FOOTER ================= */
+.footer {
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  box-shadow: 0 -6px 25px var(--shadow);
+}

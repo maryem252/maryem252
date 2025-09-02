@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Panier - GenRYM Market</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Corps de la page avec animations */
+    body { 
+      font-family: 'Segoe UI', sans-serif; 
+      padding: 0;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #023e8a;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background particles */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 25% 75%, rgba(0, 119, 182, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 75% 25%, rgba(173, 232, 244, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(202, 240, 248, 0.2) 0%, transparent 50%);
+      animation: float 20s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    /* Floating shopping icons */
+    body::after {
+      content: '🛒 💳 📦 🎁 💎 ⭐ 🛍️ 💰';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      font-size: 25px;
+      opacity: 0.08;
+      animation: floatingIcons 30s linear infinite;
+      z-index: -1;
+      white-space: pre;
+      line-height: 120px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(180deg); }
+    }
+
+    @keyframes floatingIcons {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 10px rgba(0, 119, 182, 0.5); }
+      50% { box-shadow: 0 0 25px rgba(0, 119, 182, 0.8), 0 0 35px rgba(173, 232, 244, 0.4); }
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Container principal */
+    .container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Logo et header avec animations */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    .logo::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 119, 182, 0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    .logo img {
+      height: 55px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      animation: pulse 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px rgba(0, 119, 182, 0.3));
+    }
+
+    .logo h1 {
+      font-size: 32px;
+      color: #0077b6;
+      font-weight: 700;
+      margin: 0;
+      text-shadow: 0 2px 10px rgba(0, 119, 182, 0.2);
+    }
+
+    /* Titre principal */
+    h1 { 
+      text-align: center;
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: white;
+      font-weight: 700;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
+
+    /* Solde avec animation */
+    p { 
+      text-align: center; 
+      font-size: 22px; 
+      margin-bottom: 30px; 
+      font-weight: bold;
+      color: white;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, rgba(0, 119, 182, 0.9), rgba(0, 150, 199, 0.9));
+      border-radius: 50px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      animation: fadeInUp 1s ease-out 0.4s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    p::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00d4ff, #0096c7, #0077b6);
+      animation: gradientMove 2s ease-in-out infinite;
+    }
+
+    @keyframes gradientMove {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+    }
+
+    #solde {
+      color: #00d4ff;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    }
+
+    /* Tableau moderne avec glassmorphism */
+    .table-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      animation: fadeInUp 1s ease-out 0.6s both;
+      position: relative;
+    }
+
+    .table-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #0077b6, #0096c7, #00d4ff);
+    }
+
+    table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      background: transparent;
+    }
+
+    th, td { 
+      padding: 20px; 
+      border-bottom: 1px solid rgba(0, 119, 182, 0.1); 
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    th {
+      background: linear-gradient(135deg, #0077b6, #0096c7); 
+      color: white; 
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    th::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    tbody tr {
+      animation: fadeInUp 0.6s ease-out both;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    tbody tr:nth-child(1) { animation-delay: 0.8s; }
+    tbody tr:nth-child(2) { animation-delay: 0.9s; }
+    tbody tr:nth-child(3) { animation-delay: 1.0s; }
+    tbody tr:nth-child(4) { animation-delay: 1.1s; }
+
+    tbody tr:hover {
+      background: linear-gradient(135deg, rgba(173, 232, 244, 0.3), rgba(202, 240, 248, 0.3));
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px rgba(0, 119, 182, 0.2);
+    }
+
+    tbody td {
+      font-size: 18px;
+      font-weight: 600;
+      color: #023e8a;
+    }
+
+    /* Boutons ultra-modernes */
+    .btn { 
+      background: linear-gradient(135deg, #0077b6, #0096c7); 
+      color: white; 
+      padding: 15px 30px; 
+      text-decoration: none; 
+      border-radius: 50px; 
+      font-weight: 700;
+      margin: 10px;
+      box-shadow: 0 10px 30px rgba(0, 119, 182, 0.4);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.4s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #0096c7, #00d4ff);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(0, 119, 182, 0.6);
+      animation: glow 1.5s ease-in-out infinite;
+    }
+
+    .btn:hover::before {
+      width: 120px;
+      height: 120px;
+    }
+
+    .btn:active {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    /* Actions centrées avec animation */
+    .actions {
+      margin-top: 40px;
+      text-align: center;
+      animation: fadeInUp 1s ease-out 1.2s both;
+    }
+
+    /* Message panier vide */
+    .empty-cart {
+      text-align: center;
+      padding: 60px 20px;
+      color: white;
+      font-size: 24px;
+      font-weight: 600;
+      animation: fadeInUp 1s ease-out 0.8s both;
+    }
+
+    .empty-cart::before {
+      content: '🛒';
+      font-size: 80px;
+      display: block;
+      margin-bottom: 20px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      .logo {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+
+      .logo h1 {
+        font-size: 26px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      p {
+        font-size: 18px;
+        padding: 10px 20px;
+      }
+
+      th, td {
+        padding: 12px 8px;
+        font-size: 14px;
+      }
+
+      .btn {
+        padding: 12px 20px;
+        font-size: 14px;
+        margin: 5px;
+      }
+
+      .actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #00d4ff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Logo -->
+    <div class="logo">
+        <img src="lego.png" alt="GenRYM Logo" />
+        <h1>GenRYM Market</h1>
+    </div>
+
+    <h1>🛒 Mon Panier</h1>
+    <p>Solde restant : <span id="solde"></span> MAD</p>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Produit</th>
+            <th>Prix (MAD)</th>
+          </tr>
+        </thead>
+        <tbody id="panier"></tbody>
+      </table>
+    </div>
+
+    <div class="actions">
+      <button class="btn" onclick="viderPanier()">🗑️ Vider le panier</button>
+      <a href="accueil.php" class="btn">⬅ Retour</a>
+    </div>
+  </div>
+
+  <script>
+    let panier = JSON.parse(localStorage.getItem("panier") || "[]");
+    let solde = localStorage.getItem("solde") || "0.00";
+
+    // Animation du solde
+    function animateNumber(element, finalValue) {
+      let startValue = 0;
+      let duration = 2000;
+      let startTime = null;
+      
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        let progress = Math.min((currentTime - startTime) / duration, 1);
+        let currentValue = startValue + (finalValue - startValue) * progress;
+        element.textContent = currentValue.toFixed(2);
+        
+        if (progress < 1) {
+          requestAnimationFrame(animation);
+        }
+      }
+      requestAnimationFrame(animation);
+    }
+
+    // Animer l'affichage du solde
+    const soldeElement = document.getElementById("solde");
+    animateNumber(soldeElement, parseFloat(solde));
+
+    let panierTable = document.getElementById("panier");
+    
+    if (panier.length === 0) {
+      // Afficher message panier vide
+      const emptyMessage = document.createElement("tr");
+      emptyMessage.innerHTML = `
+        <td colspan="2" class="empty-cart">
+          Votre panier est vide<br>
+          <small style="font-size: 16px; opacity: 0.8;">Ajoutez des produits pour les voir ici</small>
+        </td>
+      `;
+      panierTable.appendChild(emptyMessage);
+    } else {
+      // Afficher les produits avec animation
+      panier.forEach((item, index) => {
+        setTimeout(() => {
+          let row = document.createElement("tr");
+          row.innerHTML = `<td>${item.nom}</td><td>${item.prix.toFixed(2)}</td>`;
+          row.style.animation = `fadeInUp 0.6s ease-out both`;
+          panierTable.appendChild(row);
+        }, index * 100);
+      });
+    }
+
+    function viderPanier() {
+      // Animation avant de vider
+      const rows = panierTable.querySelectorAll('tr');
+      rows.forEach((row, index) => {
+        setTimeout(() => {
+          row.style.animation = 'fadeOut 0.3s ease-out forwards';
+        }, index * 50);
+      });
+
+      setTimeout(() => {
+        localStorage.setItem("panier", JSON.stringify([]));
+        
+        // Créer une notification personnalisée
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: linear-gradient(135deg, #0077b6, #0096c7);
+          color: white;
+          padding: 20px 40px;
+          border-radius: 15px;
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+          z-index: 1000;
+          font-size: 18px;
+          font-weight: bold;
+          animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        `;
+        notification.textContent = '🎉 Panier vidé avec succès !';
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.remove();
+          location.reload();
+        }, 2000);
+      }, 300);
+    }
+
+    // Ajouter les animations CSS manquantes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeOut {
+        to {
+          opacity: 0;
+          transform: translateX(-100px);
+        }
+      }
+      
+      @keyframes popIn {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.5);
+        }
+        100% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Ajouter des effets sonores visuels
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        // Effet ripple
+        const ripple = document.createElement('span');
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+          position: absolute;
+          width: ${size}px;
+          height: ${size}px;
+          left: ${x}px;
+          top: ${y}px;
+          background: rgba(255, 255, 255, 0.6);
+          border-radius: 50%;
+          transform: scale(0);
+          animation: ripple 0.6s ease-out;
+          pointer-events: none;
+        `;
+        
+        btn.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+
+    // Animation ripple
+    const rippleStyle = document.createElement('style');
+    rippleStyle.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(2);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(rippleStyle);
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+
+</body>
+</html>
